@@ -1,0 +1,242 @@
+/*
+ * JavaScript Notebook
+ * Theme Definitions
+ *
+ * Stage 8.2.3-B — Multi-Theme System
+ *
+ * Semantic color tokens are mapped here.
+ * Components should use semantic tokens rather than
+ * primitive colors directly.
+ */
+
+/* ============================================================
+   DARK THEME — DEFAULT
+   ============================================================ */
+
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Application */
+  --jn-color-app-background: var(--jn-gray-950);
+  --jn-color-surface: var(--jn-gray-900);
+  --jn-color-surface-raised: var(--jn-gray-800);
+  --jn-color-surface-hover: var(--jn-gray-700);
+  --jn-color-surface-active: var(--jn-gray-600);
+
+  /* Borders */
+  --jn-color-border: var(--jn-gray-700);
+  --jn-color-border-subtle: var(--jn-gray-800);
+  --jn-color-border-strong: var(--jn-gray-600);
+
+  /* Text */
+  --jn-color-text: var(--jn-gray-100);
+  --jn-color-text-secondary: var(--jn-gray-300);
+  --jn-color-text-muted: var(--jn-gray-400);
+  --jn-color-text-disabled: var(--jn-gray-600);
+
+  /* Accent */
+  --jn-color-accent: var(--jn-blue-500);
+  --jn-color-accent-hover: var(--jn-blue-400);
+  --jn-color-accent-active: var(--jn-blue-600);
+  --jn-color-accent-subtle: #172554;
+
+  /* Semantic */
+  --jn-color-success: var(--jn-green-400);
+  --jn-color-warning: var(--jn-yellow-400);
+  --jn-color-error: var(--jn-red-400);
+  --jn-color-info: var(--jn-cyan-400);
+
+  /* Editor */
+  --jn-editor-background: var(--jn-gray-950);
+  --jn-editor-gutter-background: var(--jn-gray-900);
+  --jn-editor-selection: #1e3a5f;
+
+  /* Notebook cells */
+  --jn-cell-background: var(--jn-gray-900);
+  --jn-cell-background-hover: var(--jn-gray-800);
+  --jn-cell-background-active: #172033;
+}
+
+
+/* ============================================================
+   LIGHT THEME
+   ============================================================ */
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  /* Application */
+  --jn-color-app-background: var(--jn-gray-50);
+  --jn-color-surface: var(--jn-gray-0);
+  --jn-color-surface-raised: var(--jn-gray-100);
+  --jn-color-surface-hover: var(--jn-gray-100);
+  --jn-color-surface-active: var(--jn-gray-200);
+
+  /* Borders */
+  --jn-color-border: var(--jn-gray-300);
+  --jn-color-border-subtle: var(--jn-gray-200);
+  --jn-color-border-strong: var(--jn-gray-400);
+
+  /* Text */
+  --jn-color-text: var(--jn-gray-900);
+  --jn-color-text-secondary: var(--jn-gray-700);
+  --jn-color-text-muted: var(--jn-gray-500);
+  --jn-color-text-disabled: var(--jn-gray-400);
+
+  /* Accent */
+  --jn-color-accent: var(--jn-blue-600);
+  --jn-color-accent-hover: var(--jn-blue-500);
+  --jn-color-accent-active: var(--jn-blue-700);
+  --jn-color-accent-subtle: #dbeafe;
+
+  /* Semantic */
+  --jn-color-success: var(--jn-green-600);
+  --jn-color-warning: var(--jn-yellow-600);
+  --jn-color-error: var(--jn-red-600);
+  --jn-color-info: var(--jn-cyan-600);
+
+  /* Editor */
+  --jn-editor-background: var(--jn-gray-0);
+  --jn-editor-gutter-background: var(--jn-gray-100);
+  --jn-editor-selection: #bfdbfe;
+
+  /* Notebook cells */
+  --jn-cell-background: var(--jn-gray-0);
+  --jn-cell-background-hover: var(--jn-gray-100);
+  --jn-cell-background-active: #eff6ff;
+}
+
+
+/* ============================================================
+   HIGH CONTRAST DARK
+   ============================================================ */
+
+[data-theme="high-contrast-dark"] {
+  color-scheme: dark;
+
+  /* Application */
+  --jn-color-app-background: #000000;
+  --jn-color-surface: #050505;
+  --jn-color-surface-raised: #101010;
+  --jn-color-surface-hover: #1a1a1a;
+  --jn-color-surface-active: #252525;
+
+  /* Borders */
+  --jn-color-border: #707070;
+  --jn-color-border-subtle: #4a4a4a;
+  --jn-color-border-strong: #ffffff;
+
+  /* Text */
+  --jn-color-text: #ffffff;
+  --jn-color-text-secondary: #f0f0f0;
+  --jn-color-text-muted: #d0d0d0;
+  --jn-color-text-disabled: #8a8a8a;
+
+  /* Accent */
+  --jn-color-accent: #6eb4ff;
+  --jn-color-accent-hover: #9cccff;
+  --jn-color-accent-active: #3d9bff;
+  --jn-color-accent-subtle: #102d4a;
+
+  /* Semantic */
+  --jn-color-success: #6cff9b;
+  --jn-color-warning: #ffe66d;
+  --jn-color-error: #ff7b86;
+  --jn-color-info: #6edfff;
+
+  /* Editor */
+  --jn-editor-background: #000000;
+  --jn-editor-gutter-background: #080808;
+  --jn-editor-selection: #264f78;
+
+  /* Notebook cells */
+  --jn-cell-background: #050505;
+  --jn-cell-background-hover: #151515;
+  --jn-cell-background-active: #202020;
+}
+
+
+/* ============================================================
+   HIGH CONTRAST LIGHT
+   ============================================================ */
+
+[data-theme="high-contrast-light"] {
+  color-scheme: light;
+
+  /* Application */
+  --jn-color-app-background: #ffffff;
+  --jn-color-surface: #ffffff;
+  --jn-color-surface-raised: #f5f5f5;
+  --jn-color-surface-hover: #eeeeee;
+  --jn-color-surface-active: #dddddd;
+
+  /* Borders */
+  --jn-color-border: #707070;
+  --jn-color-border-subtle: #999999;
+  --jn-color-border-strong: #000000;
+
+  /* Text */
+  --jn-color-text: #000000;
+  --jn-color-text-secondary: #1a1a1a;
+  --jn-color-text-muted: #404040;
+  --jn-color-text-disabled: #707070;
+
+  /* Accent */
+  --jn-color-accent: #005fcc;
+  --jn-color-accent-hover: #004a9f;
+  --jn-color-accent-active: #003d80;
+  --jn-color-accent-subtle: #dceeff;
+
+  /* Semantic */
+  --jn-color-success: #087f35;
+  --jn-color-warning: #8a5a00;
+  --jn-color-error: #b00020;
+  --jn-color-info: #006f8f;
+
+  /* Editor */
+  --jn-editor-background: #ffffff;
+  --jn-editor-gutter-background: #f0f0f0;
+  --jn-editor-selection: #add6ff;
+
+  /* Notebook cells */
+  --jn-cell-background: #ffffff;
+  --jn-cell-background-hover: #f2f2f2;
+  --jn-cell-background-active: #e6f2ff;
+}
+
+
+/* ============================================================
+   SHARED THEME VARIABLES
+   ============================================================ */
+
+:root,
+[data-theme="dark"],
+[data-theme="light"],
+[data-theme="high-contrast-dark"],
+[data-theme="high-contrast-light"] {
+  /* Focus */
+  --jn-focus-ring-color: var(--jn-color-accent);
+  --jn-focus-ring-width: 2px;
+
+  /* Scrollbar */
+  --jn-scrollbar-track: var(--jn-color-surface);
+  --jn-scrollbar-thumb: var(--jn-color-border);
+  --jn-scrollbar-thumb-hover: var(--jn-color-border-strong);
+
+  /* Selection */
+  --jn-selection-background: var(--jn-color-accent);
+  --jn-selection-text: var(--jn-color-text);
+
+  /* Panels */
+  --jn-panel-background: var(--jn-color-surface);
+  --jn-panel-border: var(--jn-color-border);
+
+  /* Header */
+  --jn-header-background: var(--jn-color-surface-raised);
+  --jn-header-border: var(--jn-color-border);
+
+  /* Status bar */
+  --jn-statusbar-background: var(--jn-color-accent);
+  --jn-statusbar-text: #ffffff;
+}

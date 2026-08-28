@@ -1,6 +1,7 @@
 import { AppShell } from './components/layout/AppShell'
 import { Header } from './components/layout/Header'
 import { MainWorkspace } from './components/layout/MainWorkspace'
+import { ExplorerPanel } from './components/layout/ExplorerPanel'
 // import './App.css'
 
 function App() {
@@ -11,7 +12,9 @@ function App() {
       </Header>
 
       <MainWorkspace>
-        <aside>Explorer</aside>
+        <ExplorerPanel>
+          Explorer
+        </ExplorerPanel>
         <section>Main Workspace</section>
         <aside>Analysis</aside>
       </MainWorkspace>

@@ -1,12 +1,13 @@
 import { AppShell } from './components/layout/AppShell'
+import { Header } from './components/layout/Header'
 // import './App.css'
 
 function App() {
   return (
     <AppShell>
-      <header className="app-shell__header">
+      <Header>
         Header
-      </header>
+      </Header>
 
       <main className="app-shell__main">
         <aside className="app-shell__explorer">

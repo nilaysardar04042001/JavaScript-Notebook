@@ -1,5 +1,6 @@
 import { AppShell } from './components/layout/AppShell'
 import { Header } from './components/layout/Header'
+import { MainWorkspace } from './components/layout/MainWorkspace'
 // import './App.css'
 
 function App() {
@@ -9,19 +10,11 @@ function App() {
         Header
       </Header>
 
-      <main className="app-shell__main">
-        <aside className="app-shell__explorer">
-          Explorer
-        </aside>
-
-        <section className="app-shell__workspace">
-          Main Workspace
-        </section>
-
-        <aside className="app-shell__analysis">
-          Analysis
-        </aside>
-      </main>
+      <MainWorkspace>
+        <aside>Explorer</aside>
+        <section>Main Workspace</section>
+        <aside>Analysis</aside>
+      </MainWorkspace>
 
       <section className="app-shell__bottom-panel">
         Bottom Panel

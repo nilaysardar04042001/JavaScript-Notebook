@@ -1,0 +1,19 @@
+/*
+ * JavaScript Notebook
+ * NotebookToolbar
+ *
+ * Stage 8.5.2 — Notebook Toolbar
+ */
+
+.jn-notebook-toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--jn-space-2);
+  width: 100%;
+  min-width: 0;
+  min-height: var(--jn-header-height);
+  padding: var(--jn-space-2) 0;
+  border-bottom: var(--jn-border-width-thin) solid var(--jn-color-border);
+  background: var(--jn-color-surface);
+  color: var(--jn-color-text);
+}

@@ -13,7 +13,7 @@
   min-width: 0;
   min-height: 100%;
   margin: 0 auto;
-  padding: var(--jn-space-4) var(--jn-space-6);
+  padding: var(--jn-space-3);
   overflow: auto;
   background: var(--jn-color-app-background);
   color: var(--jn-color-text);

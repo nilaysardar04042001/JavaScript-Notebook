@@ -1,0 +1,17 @@
+/*
+ * JavaScript Notebook
+ * BottomPanel
+ *
+ * Stage 8.4.6 — Bottom Panel Container
+ */
+
+.jn-bottom-panel {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border-top: var(--jn-border-width-thin) solid var(--jn-color-border);
+  background: var(--jn-color-surface);
+  color: var(--jn-color-text);
+}

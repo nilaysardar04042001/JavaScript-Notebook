@@ -3,6 +3,7 @@ import { Header } from './components/layout/Header'
 import { MainWorkspace } from './components/layout/MainWorkspace'
 import { ExplorerPanel } from './components/layout/ExplorerPanel'
 import { AnalysisPanel } from './components/layout/AnalysisPanel'
+import { BottomPanel } from './components/layout/BottomPanel'
 // import './App.css'
 
 function App() {
@@ -22,9 +23,9 @@ function App() {
         </AnalysisPanel>
       </MainWorkspace>
 
-      <section className="app-shell__bottom-panel">
+      <BottomPanel>
         Bottom Panel
-      </section>
+      </BottomPanel>
 
       <footer className="app-shell__statusbar">
         Status Bar

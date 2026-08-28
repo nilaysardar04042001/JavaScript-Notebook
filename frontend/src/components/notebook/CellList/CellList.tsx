@@ -1,5 +1,7 @@
+{/*CellList.tsx*/}
 import type { HTMLAttributes, PropsWithChildren } from 'react'
 import './CellList.css'
+import { Cell } from '.././Cell'
 
 export type CellListProps = PropsWithChildren<HTMLAttributes<HTMLDivElement>>
 
@@ -8,7 +10,10 @@ export function CellList({ children, className, ...props }: CellListProps) {
 
   return (
     <div className={classes} role="list" {...props}>
-      {children}
+        <Cell>
+            Cell 1
+        </Cell>
+        {children}
     </div>
   )
 }

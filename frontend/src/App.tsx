@@ -2,6 +2,7 @@ import { AppShell } from './components/layout/AppShell'
 import { Header } from './components/layout/Header'
 import { MainWorkspace } from './components/layout/MainWorkspace'
 import { ExplorerPanel } from './components/layout/ExplorerPanel'
+import { AnalysisPanel } from './components/layout/AnalysisPanel'
 // import './App.css'
 
 function App() {
@@ -16,7 +17,9 @@ function App() {
           Explorer
         </ExplorerPanel>
         <section>Main Workspace</section>
-        <aside>Analysis</aside>
+        <AnalysisPanel>
+          Analysis
+        </AnalysisPanel>
       </MainWorkspace>
 
       <section className="app-shell__bottom-panel">

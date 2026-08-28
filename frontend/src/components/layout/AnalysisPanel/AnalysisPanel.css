@@ -1,0 +1,17 @@
+/*
+ * JavaScript Notebook
+ * AnalysisPanel
+ *
+ * Stage 8.4.5 — Analysis Panel Container
+ */
+
+.jn-analysis-panel {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border-left: var(--jn-border-width-thin) solid var(--jn-color-border);
+  background: var(--jn-color-surface);
+  color: var(--jn-color-text);
+}

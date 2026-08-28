@@ -5,6 +5,7 @@ import { ExplorerPanel } from './components/layout/ExplorerPanel'
 import { AnalysisPanel } from './components/layout/AnalysisPanel'
 import { BottomPanel } from './components/layout/BottomPanel'
 import { StatusBar } from './components/layout/StatusBar'
+import {Notebook} from './components/notebook/Notebook'
 // import './App.css'
 
 function App() {
@@ -18,7 +19,9 @@ function App() {
         <ExplorerPanel>
           Explorer
         </ExplorerPanel>
-        <section>Main Workspace</section>
+        <Notebook>
+          Main Workspace
+        </Notebook>
         <AnalysisPanel>
           Analysis
         </AnalysisPanel>

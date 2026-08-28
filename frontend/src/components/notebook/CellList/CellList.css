@@ -1,0 +1,15 @@
+/*
+ * JavaScript Notebook
+ * CellList
+ *
+ * Stage 8.5.3 — Notebook Cell List
+ */
+
+.jn-cell-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--jn-cell-gap);
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+}

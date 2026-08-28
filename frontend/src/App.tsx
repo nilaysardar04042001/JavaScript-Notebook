@@ -4,6 +4,7 @@ import { MainWorkspace } from './components/layout/MainWorkspace'
 import { ExplorerPanel } from './components/layout/ExplorerPanel'
 import { AnalysisPanel } from './components/layout/AnalysisPanel'
 import { BottomPanel } from './components/layout/BottomPanel'
+import { StatusBar } from './components/layout/StatusBar'
 // import './App.css'
 
 function App() {
@@ -27,9 +28,9 @@ function App() {
         Bottom Panel
       </BottomPanel>
 
-      <footer className="app-shell__statusbar">
+      <StatusBar>
         Status Bar
-      </footer>
+      </StatusBar>
     </AppShell>
   )
 }

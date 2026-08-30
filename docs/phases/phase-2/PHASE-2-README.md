@@ -56,7 +56,7 @@ Verify that the Phase 2 foundation is ready for feature-development phases.
 | Sub-phase | Status |
 |---|---|
 | 2.1 Repository Initialization | Completed |
-| 2.2 Development Toolchain | In Progress |
+| 2.2 Development Toolchain | In Progress — Shared contracts verified |
 | 2.3 Repository / Source Architecture | Not Started |
 | 2.4 Application Bootstrap | Not Started |
 | 2.5 Core Types & Domain Foundation | Not Started |

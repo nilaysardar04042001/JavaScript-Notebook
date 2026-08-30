@@ -2,7 +2,9 @@
 
 ## Status
 
-**Overall:** Planning Complete / Implementation Pending
+**Overall:** In Progress
+
+**Current Sub-stage:** **2.2.7.1 — Shared Module Resolution & Build Boundary**
 
 ## Parent Stage
 
@@ -32,7 +34,141 @@ The shared layer must remain independent of the runtime implementation of either
 
 ---
 
-# 2.2.7.1 — Current Repository State
+# 2.2.7 Stage Sequence
+
+Stage 2.2.7 is divided into controlled sub-stages:
+
+```text
+2.2.7 — Shared Contracts Configuration
+│
+├── 2.2.7.1 — Shared Module Resolution & Build Boundary
+│
+├── 2.2.7.2 — Shared Contract Implementation
+│
+├── 2.2.7.3 — Frontend / Backend Consumption
+│
+├── 2.2.7.4 — Shared Validation
+│
+└── 2.2.7.5 — Documentation & Checkpoint
+```
+
+Each sub-stage must be completed and verified before proceeding to the next.
+
+---
+
+# 2.2.7.1 — Shared Module Resolution & Build Boundary
+
+## Status
+
+**Current**
+
+This sub-stage was introduced after an implementation-level module-resolution issue was discovered while connecting the backend to the existing shared TypeScript source.
+
+The issue must be resolved before continuing with backend consumption of the shared source.
+
+### Current Shared Source
+
+The repository now contains:
+
+```text
+shared/
+├── tsconfig.json
+└── src/
+    └── application.ts
+```
+
+The shared source currently defines:
+
+```text
+ApplicationState
+application
+```
+
+The frontend is already consuming this shared source.
+
+### Frontend Import
+
+The frontend currently uses the extensionless TypeScript import:
+
+```ts
+import { application } from "../../shared/src/application";
+```
+
+This is compatible with the frontend's existing:
+
+```text
+moduleResolution: Bundler
+```
+
+configuration.
+
+### Backend Module Resolution
+
+The backend currently uses:
+
+```text
+module: NodeNext
+moduleResolution: NodeNext
+```
+
+Under NodeNext/ESM rules, relative imports require an explicit runtime-compatible extension.
+
+Therefore:
+
+```ts
+import { application } from "../../shared/src/application";
+```
+
+produces a module-resolution error.
+
+Using:
+
+```ts
+import { application } from "../../shared/src/application.ts";
+```
+
+is also rejected because `allowImportingTsExtensions` has not been enabled.
+
+The backend therefore suggests:
+
+```ts
+import { application } from "../../shared/src/application.js";
+```
+
+However, this cannot yet be accepted as the complete architecture because the backend build currently uses:
+
+```text
+rootDir: ./src
+outDir: ./dist
+```
+
+and:
+
+```text
+include: ["src/**/*.ts"]
+```
+
+The backend production build therefore does not currently include the shared source under:
+
+```text
+shared/src/
+```
+
+inside the backend build boundary.
+
+### Required Decision
+
+The project must establish a deliberate module-resolution and build strategy before backend → shared consumption is finalized.
+
+The detailed decision is documented in:
+
+```text
+2.2.7.1-shared-module-resolution-build-boundary.md
+```
+
+---
+
+# 2.2.7.2 — Current Repository State
 
 The repository currently follows the full-stack structure:
 
@@ -51,6 +187,8 @@ JavaScript Notebook/
 │   └── tsconfig.build.json
 │
 ├── shared/
+│   ├── src/
+│   │   └── application.ts
 │   └── tsconfig.json
 │
 ├── scripts/
@@ -67,13 +205,13 @@ The frontend React/Vite foundation has already been established.
 
 The backend TypeScript/Node.js foundation has already been established.
 
-The shared directory currently has its TypeScript configuration boundary but does not yet contain shared application source implementation.
+The shared directory now contains its TypeScript configuration and initial shared application contract.
 
-This stage will establish the shared contract foundation without introducing notebook-domain functionality.
+The shared module-resolution/build boundary remains under controlled review.
 
 ---
 
-# 2.2.7.2 — Shared Layer Responsibility
+# 2.2.7.3 — Shared Layer Responsibility
 
 The `shared/` directory is the common code boundary between frontend and backend.
 
@@ -108,7 +246,7 @@ The shared layer should remain portable.
 
 ---
 
-# 2.2.7.3 — Shared Contracts
+# 2.2.7.4 — Shared Contracts
 
 Shared contracts define structures that must remain consistent between frontend and backend.
 
@@ -131,7 +269,7 @@ This stage establishes the technical boundary rather than implementing the compl
 
 ---
 
-# 2.2.7.4 — What Belongs in `shared/`
+# 2.2.7.5 — What Belongs in `shared/`
 
 Shared code may contain:
 
@@ -151,7 +289,7 @@ A type should not be placed in `shared/` merely because it is convenient to impo
 
 ---
 
-# 2.2.7.5 — What Does Not Belong in `shared/`
+# 2.2.7.6 — What Does Not Belong in `shared/`
 
 The following should remain outside the shared layer:
 
@@ -192,7 +330,7 @@ Those belong to later application stages.
 
 ---
 
-# 2.2.7.6 — Shared TypeScript Boundary
+# 2.2.7.7 — Shared TypeScript Boundary
 
 The existing shared TypeScript configuration is:
 
@@ -216,7 +354,7 @@ This stage should work within the TypeScript architecture already established by
 
 ---
 
-# 2.2.7.7 — Import Direction
+# 2.2.7.8 — Import Direction
 
 The intended dependency direction is:
 
@@ -250,28 +388,34 @@ This prevents the shared layer from becoming coupled to either application runti
 
 ---
 
-# 2.2.7.8 — Frontend Consumption
+# 2.2.7.9 — Frontend Consumption
 
 The frontend should consume shared contracts through a stable import boundary.
 
-Conceptually:
+The current implementation demonstrates:
 
 ```text
-frontend/src/
-      │
-      ▼
-shared/
+frontend/src/App.tsx
+        │
+        ▼
+shared/src/application.ts
 ```
 
-Frontend implementation may use shared request and response types when communicating with the backend.
+The frontend currently consumes:
 
-The shared layer must remain free of React-specific dependencies.
+```text
+application
+```
+
+from the shared source.
+
+The shared layer remains free of React-specific dependencies.
 
 ---
 
-# 2.2.7.9 — Backend Consumption
+# 2.2.7.10 — Backend Consumption
 
-The backend should consume the same shared contract definitions.
+The backend is intended to consume the same shared contract definitions.
 
 Conceptually:
 
@@ -279,39 +423,43 @@ Conceptually:
 backend/src/
       │
       ▼
-shared/
+shared/src/
 ```
 
-This allows frontend and backend to use the same TypeScript representation of common contracts.
+However, backend consumption is currently **blocked pending completion of 2.2.7.1**.
 
-The backend must not require frontend-specific dependencies merely to consume shared types.
+The backend uses NodeNext/ESM resolution, while the shared source currently uses Bundler resolution.
+
+The project must first establish how the shared source is made available to the backend both during development and after production compilation.
+
+No workaround should be introduced merely to bypass the TypeScript diagnostic.
 
 ---
 
-# 2.2.7.10 — Contract Ownership
+# 2.2.7.11 — Contract Ownership
 
 Shared contracts should have a clear owner.
 
 The contract itself belongs to the shared boundary when both frontend and backend require the same definition.
 
-For example:
+The existing initial contract is:
 
 ```text
-API request
-    │
-    ├── frontend needs request shape
-    │
-    └── backend needs request shape
-              │
-              ▼
-           shared/
+shared/src/application.ts
 ```
 
-This avoids duplicated definitions that can silently diverge.
+which provides:
+
+```text
+ApplicationState
+application
+```
+
+This establishes the first shared ownership boundary without introducing notebook-domain models.
 
 ---
 
-# 2.2.7.11 — Avoiding Premature Domain Modeling
+# 2.2.7.12 — Avoiding Premature Domain Modeling
 
 This stage is not the complete domain-model stage.
 
@@ -333,11 +481,11 @@ The shared layer should initially remain small and intentional.
 
 ---
 
-# 2.2.7.12 — Runtime Independence
+# 2.2.7.13 — Runtime Independence
 
 Shared contracts should be usable by both environments.
 
-The preferred initial shared layer is therefore TypeScript-source oriented and runtime-independent.
+The preferred shared layer is therefore TypeScript-source oriented and runtime-independent.
 
 Avoid dependencies that require:
 
@@ -355,29 +503,45 @@ unless a later architectural decision explicitly requires such shared runtime fu
 
 ---
 
-# 2.2.7.13 — Module Resolution
+# 2.2.7.14 — Module Resolution
 
-The shared layer must work with the TypeScript configuration already established in:
+Module resolution is currently the primary unresolved technical boundary.
+
+The relevant configurations are:
 
 ```text
-shared/tsconfig.json
 frontend/tsconfig.json
+    module: ESNext
+    moduleResolution: Bundler
+
 backend/tsconfig.json
+    module: NodeNext
+    moduleResolution: NodeNext
+
+shared/tsconfig.json
+    module: ESNext
+    moduleResolution: Bundler
 ```
 
-Any import strategy introduced during this stage must be verified against the actual TypeScript configurations.
+The frontend can consume the shared source using the existing Bundler resolution model.
 
-No path alias should be introduced solely for cosmetic reasons.
+The backend cannot consume the same relative source using the same extensionless import because NodeNext requires explicit runtime-compatible extensions.
 
-If aliases become necessary, they must be documented and verified across the relevant TypeScript projects and build tools.
+The project must therefore establish a solution that satisfies both development-time and build-time requirements.
+
+Detailed analysis and decision criteria are defined in:
+
+```text
+2.2.7.1-shared-module-resolution-build-boundary.md
+```
 
 ---
 
-# 2.2.7.14 — Package Boundary
+# 2.2.7.15 — Package Boundary
 
 The project remains a single npm project.
 
-The shared layer does not become an independent npm package during this stage.
+The shared layer does not automatically become an independent npm package.
 
 Therefore:
 
@@ -398,31 +562,41 @@ should be introduced unless a later architectural decision explicitly requires p
 
 ---
 
-# 2.2.7.15 — Build Boundary
+# 2.2.7.16 — Build Boundary
 
-The shared layer currently uses a TypeScript configuration with:
+The shared layer currently uses:
 
 ```text
 noEmit: true
 ```
 
-The initial purpose of the shared TypeScript project is therefore validation rather than independent package compilation.
+The initial shared TypeScript project is therefore a validation boundary rather than an independent production build.
 
-Shared source should be validated as part of the repository TypeScript quality gate.
+However, the backend production build currently uses:
 
-The shared layer should not acquire an independent production build pipeline during this stage unless required by the actual application architecture.
+```text
+rootDir: ./src
+outDir: ./dist
+include: ["src/**/*.ts"]
+```
+
+This means the current backend build does not automatically emit the shared source.
+
+Consequently, the backend/shared production runtime relationship cannot yet be considered complete.
+
+This is one of the primary issues that **2.2.7.1** must resolve.
 
 ---
 
-# 2.2.7.16 — Root Typecheck Integration
+# 2.2.7.17 — Root Typecheck Integration
 
-The existing root command architecture already includes:
+The existing root command architecture includes:
 
 ```text
 npm run typecheck:shared
 ```
 
-The shared contract implementation must therefore remain compatible with the existing root typecheck workflow.
+The shared contract implementation must remain compatible with the existing root typecheck workflow.
 
 The intended relationship is:
 
@@ -434,11 +608,11 @@ npm run typecheck
         └── typecheck:shared
 ```
 
-After shared source is introduced, actual TypeScript errors must propagate through the shared check and consequently through the root quality gate.
+After the module-resolution boundary is resolved, actual TypeScript errors must propagate through the relevant checks.
 
 ---
 
-# 2.2.7.17 — Validation Requirements
+# 2.2.7.18 — Validation Requirements
 
 The shared-contract implementation must be verified at multiple levels.
 
@@ -448,15 +622,11 @@ The shared-contract implementation must be verified at multiple levels.
 npm run typecheck:shared
 ```
 
-must pass when the shared implementation is valid.
-
 ### Frontend TypeScript Validation
 
 ```text
 npm run typecheck:frontend
 ```
-
-must continue to pass after frontend consumption of shared contracts is introduced.
 
 ### Backend TypeScript Validation
 
@@ -464,15 +634,17 @@ must continue to pass after frontend consumption of shared contracts is introduc
 npm run typecheck:backend
 ```
 
-must continue to pass after backend consumption of shared contracts is introduced.
-
 ### Root Validation
 
 ```text
 npm run typecheck
 ```
 
-must continue to pass.
+### Backend Build
+
+```text
+npx tsc --project backend/tsconfig.build.json
+```
 
 ### Formatting Validation
 
@@ -480,13 +652,13 @@ must continue to pass.
 git diff --check
 ```
 
-must pass.
+All checks must represent actual successful behavior rather than merely suppressing diagnostics.
 
 ---
 
-# 2.2.7.18 — Import Boundary Verification
+# 2.2.7.19 — Import Boundary Verification
 
-The implementation should verify both permitted dependency directions.
+The implementation must verify both permitted dependency directions.
 
 Valid:
 
@@ -506,7 +678,7 @@ The shared implementation must not accidentally introduce runtime or module depe
 
 ---
 
-# 2.2.7.19 — No Circular Dependency Boundary
+# 2.2.7.20 — No Circular Dependency Boundary
 
 The shared layer must not participate in circular application dependencies.
 
@@ -537,7 +709,7 @@ This keeps the shared layer reusable and independently understandable.
 
 ---
 
-# 2.2.7.20 — Documentation Requirements
+# 2.2.7.21 — Documentation Requirements
 
 The implementation must be accompanied by documentation describing:
 
@@ -547,17 +719,18 @@ The implementation must be accompanied by documentation describing:
 - TypeScript boundary
 - Frontend consumption
 - Backend consumption
+- Module-resolution decisions
+- Build-boundary decisions
 - Validation commands
-- Any module-resolution decisions
-- Any limitations
+- Known limitations
 
 Documentation must describe the actual implementation rather than planned future behavior.
 
 ---
 
-# 2.2.7.21 — Implementation Boundary
+# 2.2.7.22 — Implementation Boundary
 
-The first implementation step of 2.2.7 may introduce only the minimum shared contract foundation required to establish and verify the boundary.
+The implementation may introduce only the minimum shared contract foundation required to establish and verify the boundary.
 
 It must not introduce:
 
@@ -576,42 +749,48 @@ Those remain outside this toolchain stage.
 
 ---
 
-# 2.2.7.22 — Expected Initial Structure
+# 2.2.7.23 — Expected Structure
 
-The exact source filenames should be selected during implementation according to the contract design.
-
-The expected conceptual structure is:
+The current conceptual structure is:
 
 ```text
 shared/
 ├── tsconfig.json
 └── src/
-    └── <shared-contracts>
+    └── application.ts
 ```
 
-The initial source structure should remain minimal.
+The existing contract provides:
 
-Additional directories should be introduced only when there is a concrete shared concern requiring them.
+```text
+ApplicationState
+application
+```
+
+Additional shared source should be introduced only when a concrete shared concern requires it.
 
 ---
 
-# 2.2.7.23 — Acceptance Criteria
+# 2.2.7.24 — Acceptance Criteria
 
 Stage 2.2.7 is complete when:
 
 - Shared-code responsibility is clearly established.
 - Shared contracts have a defined ownership boundary.
-- Shared TypeScript source exists where required.
+- The shared module-resolution strategy is documented and implemented.
+- Development-time shared consumption works.
+- Backend production-build consumption works.
 - Frontend can consume the shared contract boundary.
 - Backend can consume the shared contract boundary.
 - Shared code does not depend on frontend implementation.
 - Shared code does not depend on backend implementation.
 - No circular dependency is introduced.
-- Existing TypeScript compiler settings remain unchanged.
+- Existing TypeScript compiler settings remain unchanged unless an explicit architectural decision later requires a change.
 - `npm run typecheck:shared` passes.
 - `npm run typecheck:frontend` passes.
 - `npm run typecheck:backend` passes.
 - `npm run typecheck` passes.
+- Backend production build passes.
 - Documentation reflects the actual implementation.
 - No unrelated application functionality is introduced.
 - Git validation passes.
@@ -619,75 +798,85 @@ Stage 2.2.7 is complete when:
 
 ---
 
-# 2.2.7.24 — Controlled Implementation Sequence
+# 2.2.7.25 — Controlled Implementation Sequence
 
-The implementation should follow:
+The revised implementation sequence is:
 
 ```text
 2.2.7
 Shared Contracts Configuration
         │
         ▼
-Create minimal shared source boundary
+2.2.7.1
+Shared Module Resolution & Build Boundary
         │
         ▼
-Define initial shared contract(s)
+Resolve development/build module boundary
         │
         ▼
-Connect frontend consumption
+Verify selected architecture
         │
         ▼
-Connect backend consumption
+2.2.7.2
+Shared Contract Implementation
         │
         ▼
-Run scoped TypeScript validation
+2.2.7.3
+Frontend / Backend Consumption
         │
         ▼
-Run root typecheck
+2.2.7.4
+Shared Validation
         │
         ▼
-Review dependency boundaries
-        │
-        ▼
-Document actual result
-        │
-        ▼
-Commit checkpoint
+2.2.7.5
+Documentation & Checkpoint
 ```
 
-Each step must be verified before moving to the next.
+Each sub-stage must be verified before moving to the next.
 
 ---
 
 # Current Status
 
-**2.2.7 — Planning Complete / Implementation Pending**
+**2.2.7 — In Progress**
 
-No shared application source implementation is represented by this document alone.
+**Current Sub-stage:**
 
-The repository currently has the shared TypeScript configuration boundary but does not yet have shared contract implementation.
+**2.2.7.1 — Shared Module Resolution & Build Boundary**
+
+The first shared source contract has been created:
+
+```text
+shared/src/application.ts
+```
+
+Frontend consumption has been established.
+
+Backend consumption exposed a NodeNext/ESM module-resolution and build-boundary issue.
+
+That issue is now explicitly isolated into sub-stage **2.2.7.1**.
 
 ---
 
 # Next Controlled Action
 
-Create the minimum shared source structure and initial contract required to verify the shared boundary.
+Complete:
 
-Before implementation:
+**2.2.7.1 — Shared Module Resolution & Build Boundary**
+
+The immediate objective is to establish a technically correct and verifiable mechanism for:
 
 ```text
-Review this planning document
-        ↓
-Confirm scope
-        ↓
-Create shared source
-        ↓
-Connect frontend/backend consumption
-        ↓
-Verify TypeScript
+frontend → shared
+backend  → shared
 ```
 
-No unrelated frontend, backend, or notebook functionality should be introduced during this stage.
+during both development and production build scenarios.
+
+No additional shared contracts should be introduced until this boundary has been resolved.
+
+No notebook-domain implementation should be introduced during this sub-stage.
 
 ---
 
@@ -701,11 +890,20 @@ Backend Configuration
 2.2.7
 Shared Contracts Configuration
         │
-        ├── Planning
-        ├── Implementation
-        ├── Verification
-        ├── Documentation
-        └── Git Checkpoint
+        ├── 2.2.7.1
+        │   Shared Module Resolution & Build Boundary
+        │
+        ├── 2.2.7.2
+        │   Shared Contract Implementation
+        │
+        ├── 2.2.7.3
+        │   Frontend / Backend Consumption
+        │
+        ├── 2.2.7.4
+        │   Shared Validation
+        │
+        └── 2.2.7.5
+            Documentation & Checkpoint
         │
         ▼
 2.2.8

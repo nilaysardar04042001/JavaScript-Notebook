@@ -6,7 +6,11 @@ export default defineConfig({
   root: fileURLToPath(new URL('./', import.meta.url)),
   plugins: [react()],
   test: {
-    include: ['./src/**/*.test.{ts,tsx}', '../shared/**/*.test.ts', '../backend/**/*.test.ts'],
+    include: [
+      './src/**/*.test.{ts,tsx}',
+      '../shared/**/*.test.ts',
+      '../backend/**/*.test.ts',
+    ],
     environment: 'jsdom',
     globals: true,
     setupFiles: './vitest.setup.ts',

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "A computer and tablet oriented JavaScript interactive notebook for learning, coding, execution, analysis, and visualization.",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest --config frontend/vite.config.ts",
     "dev:frontend": "vite --config frontend/vite.config.ts",
     "build:frontend": "vite build --config frontend/vite.config.ts",
     "typecheck": "npm run typecheck:frontend && npm run typecheck:backend && npm run typecheck:shared",
@@ -13,7 +13,10 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write ./frontend/src ./backend/src ./shared/src ./scripts ./tsconfig.json ./frontend/tsconfig.json ./frontend/vite.config.ts ./backend/tsconfig.json ./backend/tsconfig.build.json ./shared/tsconfig.json ./shared/tsconfig.build.json ./eslint.config.mjs ./.prettierrc.json",
-    "format:check": "prettier --check ./frontend/src ./backend/src ./shared/src ./scripts ./tsconfig.json ./frontend/tsconfig.json ./frontend/vite.config.ts ./backend/tsconfig.json ./backend/tsconfig.build.json ./shared/tsconfig.json ./shared/tsconfig.build.json ./eslint.config.mjs ./.prettierrc.json"
+    "format:check": "prettier --check ./frontend/src ./backend/src ./shared/src ./scripts ./tsconfig.json ./frontend/tsconfig.json ./frontend/vite.config.ts ./backend/tsconfig.json ./backend/tsconfig.build.json ./shared/tsconfig.json ./shared/tsconfig.build.json ./eslint.config.mjs ./.prettierrc.json",
+    "test:watch": "vitest --config frontend/vite.config.ts --watch",
+    "test:run": "vitest run --config frontend/vite.config.ts",
+    "test:coverage": "vitest run --config frontend/vite.config.ts --coverage"
   },
   "keywords": [],
   "author": "",
@@ -21,15 +24,19 @@
   "type": "module",
   "private": true,
   "devDependencies": {
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
     "@types/node": "^26.4.0",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.5",
     "@vitejs/plugin-react": "^6.1.1",
     "eslint": "^10.9.1",
+    "jsdom": "^30.0.1",
     "prettier": "^3.9.6",
     "tsx": "^4.23.13",
     "typescript": "^7.0.2",
-    "vite": "^8.2.2"
+    "vite": "^8.2.2",
+    "vitest": "^4.1.11"
   },
   "dependencies": {
     "react": "^19.2.8",

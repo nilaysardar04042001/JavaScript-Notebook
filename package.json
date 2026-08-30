@@ -3,7 +3,11 @@
   "version": "0.1.0",
   "description": "A computer and tablet oriented JavaScript interactive notebook for learning, coding, execution, analysis, and visualization.",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "typecheck": "npm run typecheck:frontend && npm run typecheck:backend && npm run typecheck:shared",
+    "typecheck:frontend": "node scripts/typecheck.mjs frontend",
+    "typecheck:backend": "node scripts/typecheck.mjs backend",
+    "typecheck:shared": "node scripts/typecheck.mjs shared"
   },
   "keywords": [],
   "author": "",

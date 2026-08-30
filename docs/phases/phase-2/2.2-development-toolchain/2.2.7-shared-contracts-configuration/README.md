@@ -4,9 +4,9 @@
 
 **Overall:** Complete
 
-**Current Sub-stage:** **2.2.7.3 — Frontend / Backend Consumption**
+**Current Sub-stage:** **2.2.7.5 — Documentation & Checkpoint**
 
-**Implementation Snapshot:** The repository already includes a working shared contract and real frontend/backend consumption. The shared boundary has been established and validated at the TypeScript level, and the consumption pattern has been verified in both the frontend and backend.
+**Implementation Snapshot:** The repository already includes a working shared contract, verified frontend/backend consumption, and completed shared validation. The stage has been closed with the final documentation and checkpoint record.
 
 ## Parent Stage
 
@@ -54,7 +54,7 @@ Stage 2.2.7 is divided into controlled sub-stages:
 └── 2.2.7.5 — Documentation & Checkpoint
 ```
 
-The repository has verified that 2.2.7.2 and 2.2.7.3 are complete through successful shared compilation, frontend/backend consumer type-checking, and end-to-end project validation. The remaining work is limited to final stage documentation and any follow-up refinement required before the toolchain checkpoint.
+The repository has verified that 2.2.7.1 through 2.2.7.4 are complete through successful shared compilation, frontend/backend consumer type-checking, shared validation, and end-to-end project validation. The final step is the documentation/checkpoint milestone captured by 2.2.7.5.
 
 ---
 

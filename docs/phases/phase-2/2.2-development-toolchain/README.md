@@ -25,6 +25,9 @@ The development-toolchain work is divided into controlled stages.
 ├── 2.2.2 Core Toolchain Installation
 ├── 2.2.3 TypeScript Configuration
 ├── 2.2.4 Development Scripts & Project Commands
+│   ├── 2.2.4.1 Development Script & Command Strategy
+│   ├── 2.2.4.2 Root Development Commands
+│   └── 2.2.4.3 Frontend Development Commands
 ├── 2.2.5 React + Vite Configuration
 ├── 2.2.6 Backend Configuration
 ├── 2.2.7 Shared Contracts Configuration
@@ -34,7 +37,7 @@ The development-toolchain work is divided into controlled stages.
 └── 2.2.11 Documentation & Final Checkpoint
 ```
 
-Stages are completed sequentially.
+Stages and sub-stages are completed sequentially.
 
 A later stage must not silently replace or bypass decisions made in an earlier stage.
 
@@ -42,19 +45,22 @@ A later stage must not silently replace or bypass decisions made in an earlier s
 
 # Current Status
 
-| Stage                                            | Status      |
-| ------------------------------------------------ | ----------- |
-| **2.2.1 Toolchain Planning**                     | ✅ Completed |
-| **2.2.2 Core Toolchain Installation**            | ✅ Completed |
-| **2.2.3 TypeScript Configuration**               | ✅ Completed |
-| **2.2.4 Development Scripts & Project Commands** | 🔵 Current  |
-| **2.2.5 React + Vite Configuration**             | ⏳ Next      |
-| **2.2.6 Backend Configuration**                  | Not Started |
-| **2.2.7 Shared Contracts Configuration**         | Not Started |
-| **2.2.8 ESLint + Prettier**                      | Not Started |
-| **2.2.9 Testing Toolchain**                      | Not Started |
-| **2.2.10 Toolchain Verification**                | Not Started |
-| **2.2.11 Documentation & Final Checkpoint**      | Not Started |
+| Stage | Status |
+|---|---|
+| **2.2.1 Toolchain Planning** | ✅ Completed |
+| **2.2.2 Core Toolchain Installation** | ✅ Completed |
+| **2.2.3 TypeScript Configuration** | ✅ Completed |
+| **2.2.4 Development Scripts & Project Commands** | ✅ Completed |
+| ├── 2.2.4.1 Development Script & Command Strategy | ✅ Completed |
+| ├── 2.2.4.2 Root Development Commands | ✅ Completed |
+| └── 2.2.4.3 Frontend Development Commands | ✅ Completed |
+| **2.2.5 React + Vite Configuration** | ✅ Completed |
+| **2.2.6 Backend Configuration** | ✅ Completed |
+| **2.2.7 Shared Contracts Configuration** | 🔵 Current |
+| **2.2.8 ESLint + Prettier** | ⏳ Next |
+| **2.2.9 Testing Toolchain** | Not Started |
+| **2.2.10 Toolchain Verification** | Not Started |
+| **2.2.11 Documentation & Final Checkpoint** | Not Started |
 
 ---
 
@@ -94,23 +100,19 @@ Decision record:
 
 The foundational development dependencies were installed at the repository root.
 
-## Verified Environment
+Verified environment:
 
-| Component              | Version    |
-| ---------------------- | ---------- |
-| Node.js                | `v24.16.0` |
-| npm                    | `11.13.0`  |
-| TypeScript             | `7.0.2`    |
-| Vite                   | `8.2.2`    |
-| React                  | `19.2.8`   |
-| React DOM              | `19.2.8`   |
-| `@types/react`         | `19.2.18`  |
-| `@types/react-dom`     | `19.2.5`   |
-| `@vitejs/plugin-react` | `6.1.1`    |
-
-## Verification
-
-The installed dependency tree was verified using npm.
+| Component | Version |
+|---|---:|
+| Node.js | `v24.16.0` |
+| npm | `11.13.0` |
+| TypeScript | `7.0.2` |
+| Vite | `8.2.2` |
+| React | `19.2.8` |
+| React DOM | `19.2.8` |
+| `@types/react` | `19.2.18` |
+| `@types/react-dom` | `19.2.5` |
+| `@vitejs/plugin-react` | `6.1.1` |
 
 Security verification reported:
 
@@ -132,9 +134,9 @@ Detailed documentation:
 
 **Completed**
 
-TypeScript configuration was created from scratch for the full-stack repository.
+TypeScript configuration was established for the full-stack repository.
 
-## Configuration Structure
+Configuration structure:
 
 ```text
 tsconfig.json
@@ -144,48 +146,49 @@ tsconfig.json
 └── shared/tsconfig.json
 ```
 
-## Root Configuration
+The root configuration establishes common TypeScript policy.
 
-The root configuration establishes common TypeScript policy including:
+Each application boundary provides its own configuration appropriate to its environment.
 
-* ES2022 target
-* ES module support
-* Strict type checking
-* Isolated modules
-* Consistent casing
-* Library checking policy
-* No direct JavaScript emission from the common configuration
-
-## Frontend Configuration
-
-The frontend configuration extends the root configuration and adds browser/React requirements including:
-
-* React JSX
-* DOM libraries
-* DOM iterable libraries
-* Vite-compatible module resolution
-
-## Backend Configuration
-
-The backend configuration extends the root configuration and uses:
-
-* ES2022 libraries
-* NodeNext module system
-* NodeNext module resolution
-
-## Shared Configuration
-
-The shared configuration extends the root configuration and provides a neutral configuration suitable for code shared between frontend and backend.
-
-## Verification
-
-All three project configurations were successfully processed using TypeScript's configuration inspection:
+### Frontend
 
 ```text
-Frontend TypeScript configuration: PASS
-Backend TypeScript configuration: PASS
-Shared TypeScript configuration: PASS
+frontend/tsconfig.json
 ```
+
+Configured for:
+
+* React JSX
+* Browser libraries
+* ES modules
+* Bundler module resolution
+
+### Backend
+
+```text
+backend/tsconfig.json
+```
+
+Configured for:
+
+* Node.js
+* ES2022 libraries
+* NodeNext module configuration
+* NodeNext module resolution
+
+### Shared
+
+```text
+shared/tsconfig.json
+```
+
+Configured for:
+
+* Shared TypeScript code
+* ES modules
+* Bundler module resolution
+
+The three configurations were successfully inspected and validated.
 
 Detailed documentation:
 
@@ -197,57 +200,120 @@ Detailed documentation:
 
 ## Status
 
-**Current**
+**Completed**
 
-This stage establishes the command interface used to operate the full-stack project.
+This stage established the root command interface used to operate the full-stack project.
 
 The root `package.json` remains the primary command entry point.
 
-## Objectives
+The work was divided into three controlled sub-stages.
 
-The command system will provide a consistent interface for:
+---
 
-* Development
-* Frontend development
-* Backend development
-* Full-stack development
-* Type checking
-* Building
-* Testing
-* Validation
-* Linting
-* Formatting
+## 2.2.4.1 — Development Script & Command Strategy
 
-## Command Design Principle
+### Status
+
+**Completed**
+
+Defined the development-script strategy and command naming conventions.
+
+The strategy established:
+
+* Root command orchestration
+* Scoped commands
+* Failure propagation
+* Command naming
+* Deferred commands
+* Frontend command boundaries
+* Backend command boundaries
+* Full-stack command considerations
 
 Commands must correspond to real project capabilities.
 
-A command must not be added merely because it is expected in a typical JavaScript project.
+Placeholder commands must not be introduced merely because they are expected in a typical JavaScript project.
 
-For example, a development command should not be considered complete until the application it is supposed to start actually exists.
+Detailed documentation:
 
-## Root Command Boundary
+`2.2.4-development-scripts/2.2.4.1-development-script-strategy.md`
 
-The intended architecture is:
+---
+
+## 2.2.4.2 — Root Development Commands
+
+### Status
+
+**Completed**
+
+Established root TypeScript validation commands:
 
 ```text
-npm run <command>
-        │
-        ├── frontend
-        ├── backend
-        ├── shared
-        └── full-stack workflow
+npm run typecheck
+npm run typecheck:frontend
+npm run typecheck:backend
+npm run typecheck:shared
 ```
 
-The root command interface should coordinate the repository without creating a second project boundary.
+The root command orchestrates the three scoped TypeScript checks.
 
-## Important Constraint
+The repository also uses a root TypeScript checking wrapper so that an intentionally empty TypeScript source scope does not cause an early-development checkpoint to fail solely because no source files exist.
 
-The stage will establish commands progressively.
+Once source files exist, TypeScript runs normally and real TypeScript failures are propagated.
 
-Frontend and backend commands may depend on configuration introduced by later stages.
+Detailed documentation:
 
-Therefore, command planning and command implementation must remain aligned with the actual project state.
+`2.2.4-development-scripts/2.2.4.2-root-development-commands.md`
+
+---
+
+## 2.2.4.3 — Frontend Development Commands
+
+### Status
+
+**Completed**
+
+Established the frontend development and production-build commands against the configured Vite application.
+
+Available commands:
+
+```text
+npm run dev:frontend
+npm run build:frontend
+```
+
+### Frontend Development
+
+```text
+npm run dev:frontend
+```
+
+Uses the configured frontend Vite configuration:
+
+```text
+frontend/vite.config.ts
+```
+
+The development server was successfully started and verified.
+
+### Frontend Production Build
+
+```text
+npm run build:frontend
+```
+
+The production build was successfully generated using the configured Vite application.
+
+The resulting build output is generated under:
+
+```text
+frontend/dist/
+```
+
+Build artifacts remain excluded from Git according to the repository's existing ignore rules.
+
+Detailed documentation:
+
+`2.2.4-development-scripts/2.2.4.3-frontend-development-commands.md`
 
 ---
 
@@ -255,48 +321,41 @@ Therefore, command planning and command implementation must remain aligned with 
 
 ## Status
 
-**Next**
+**Completed**
 
-This stage will establish the actual frontend build and development foundation.
+The frontend React + TypeScript + Vite foundation was established.
 
-## Scope
-
-The stage will configure:
+The frontend contains the minimal application infrastructure required for development and production builds.
 
 ```text
 frontend/
+├── index.html
+├── vite.config.ts
+└── src/
+    ├── main.tsx
+    ├── App.tsx
+    ├── styles.css
+    └── vite-env.d.ts
 ```
 
-for:
+The configuration provides:
 
 * React
 * TypeScript
 * Vite
 * JSX/TSX processing
-* Development server
+* Frontend development server
 * Production build
-* Frontend module resolution
-* Frontend asset handling
+* Vite-compatible module resolution
+* Static asset handling
 
-## Architectural Boundary
+Verification included:
 
-The React + Vite configuration belongs to the frontend.
+* Frontend TypeScript validation
+* Vite development-server startup
+* Vite production build
 
-It must not absorb backend or shared application responsibilities.
-
-The intended relationship is:
-
-```text
-frontend/
-    │
-    ├── React
-    ├── Vite
-    └── TypeScript
-          │
-          └── shared/
-```
-
-Backend configuration will be handled independently in its own stage.
+The frontend configuration remains intentionally minimal and does not yet implement notebook functionality.
 
 ---
 
@@ -304,21 +363,54 @@ Backend configuration will be handled independently in its own stage.
 
 ## Status
 
-**Not Started**
+**Completed**
 
-This stage will establish the server-side TypeScript/runtime configuration.
+The initial backend TypeScript and Node.js runtime foundation was established.
 
-Scope will include:
+Backend structure:
 
-* Backend runtime
-* Server entry configuration
-* Development execution
-* Production execution
-* Environment handling
-* Server-side module resolution
-* Backend build configuration
+```text
+backend/
+├── src/
+│   └── index.ts
+├── tsconfig.json
+└── tsconfig.build.json
+```
 
-The backend will remain independent from the React/Vite frontend runtime.
+The backend configuration provides separate development/type-checking and production-build boundaries.
+
+Verification included:
+
+* Backend TypeScript validation
+* Backend production TypeScript build
+* Backend server startup
+* Health endpoint verification
+
+The health endpoint returns:
+
+```json
+{
+  "status": "ok"
+}
+```
+
+The backend root route is not required to provide an application response at this stage.
+
+The backend does not yet establish:
+
+* Application API architecture
+* Database infrastructure
+* Authentication
+* Notebook persistence
+* Execution services
+* Analysis services
+* Production deployment infrastructure
+
+Those belong to later stages.
+
+Detailed documentation:
+
+`2.2.6-backend-configuration.md`
 
 ---
 
@@ -326,19 +418,44 @@ The backend will remain independent from the React/Vite frontend runtime.
 
 ## Status
 
-**Not Started**
+**Current**
 
-This stage will establish the shared-code boundary.
+The next controlled stage establishes the shared-code boundary between the frontend and backend.
 
-The `shared/` area may contain:
+The objective is to define how common TypeScript contracts and shared types are organized without introducing application-specific implementation prematurely.
 
-* Domain types
-* API contracts
-* Shared models
-* Validation contracts
-* Common utilities
+The intended relationship is:
 
-Shared code must remain independent of browser-only and server-only implementation details.
+```text
+frontend/
+    │
+    │ shared contracts
+    ▼
+shared/
+    ▲
+    │ shared contracts
+    │
+backend/
+```
+
+The shared layer must remain independent of:
+
+* Browser-only implementation
+* Server-only implementation
+* React components
+* Backend runtime infrastructure
+
+Expected scope includes:
+
+* Shared TypeScript contract boundary
+* Shared type organization
+* Frontend consumption boundary
+* Backend consumption boundary
+* Import/resolution strategy
+* Shared TypeScript validation
+* Documentation of shared-code rules
+
+No notebook-domain implementation should be introduced merely to demonstrate the shared layer.
 
 ---
 
@@ -346,20 +463,27 @@ Shared code must remain independent of browser-only and server-only implementati
 
 ## Status
 
-**Not Started**
+**Next**
 
-This stage will establish code-quality and formatting standards.
+This stage will establish repository-wide code-quality and formatting standards.
 
 Planned responsibilities include:
 
+* ESLint
+* Prettier
 * Static analysis
-* Code-style validation
 * Formatting
-* Consistent source conventions
-* Integration with TypeScript
-* Integration with React where applicable
+* Formatting verification
+* TypeScript integration
+* React integration where applicable
 
-Configuration will be designed for the full repository.
+The configuration must support:
+
+```text
+frontend/
+backend/
+shared/
+```
 
 ---
 
@@ -379,7 +503,7 @@ Testing will eventually cover appropriate layers including:
 * Application behavior
 * Integration boundaries
 
-The testing framework will be selected according to the requirements established in the toolchain planning documentation.
+The testing framework will be selected according to the requirements established during toolchain planning.
 
 ---
 
@@ -389,14 +513,14 @@ The testing framework will be selected according to the requirements established
 
 **Not Started**
 
-The complete toolchain will be verified after all required configuration stages are established.
+The complete toolchain will be verified after the required configuration stages are established.
 
 Verification will include:
 
 * Dependency verification
 * Type checking
 * Frontend development startup
-* Frontend build
+* Frontend production build
 * Backend startup
 * Backend build
 * Shared-code validation
@@ -433,7 +557,7 @@ A final Git checkpoint will be created only after the complete 2.2 toolchain has
 
 # Full-Stack Architecture Principle
 
-The toolchain must support the complete application rather than treating the project as a frontend-only application.
+The toolchain supports the complete application rather than treating the project as a frontend-only application.
 
 ```text
                          JavaScript Notebook
@@ -508,37 +632,35 @@ Next Stage
 
 A stage is not considered complete merely because files exist.
 
-The corresponding implementation must be verified and documented.
+Implementation and verification results must correspond to the actual repository state.
 
 ---
 
-# Current Git Baseline
+# Current Git Checkpoint
 
-The latest completed checkpoint is:
+The latest completed implementation checkpoint is:
 
 ```text
-ffafe37 feat: establish TypeScript configuration
+41ef40e feat: establish backend configuration
 ```
 
-The repository was verified clean after completing 2.2.3.
+Subsequent documentation checkpoints may exist after this implementation checkpoint.
+
+The working tree should be verified before creating the next checkpoint.
 
 ---
 
 # Immediate Next Work
 
-## Current
+## Current Stage
 
-**2.2.4 — Development Scripts & Project Commands**
+**2.2.7 — Shared Contracts Configuration**
 
-First establish the command interface and determine which commands can be implemented against the current repository state.
+The next controlled action is to create the detailed planning/documentation for Stage 2.2.7.
 
-## Next
+Only after the scope and boundaries are documented and reviewed should shared-contract implementation begin.
 
-**2.2.5 — React + Vite Configuration**
-
-After 2.2.4 is completed and checkpointed, configure the frontend React/Vite environment.
-
-No notebook functionality should be implemented as part of these toolchain stages.
+No notebook functionality should be implemented as part of the shared-contract configuration stage.
 
 ---
 
@@ -549,11 +671,13 @@ Phase 2.2 is complete only when:
 * Toolchain planning is documented.
 * Core dependencies are installed and verified.
 * TypeScript configurations are established.
-* Development commands are established.
+* Development script strategy is established.
+* Root development commands are established.
+* Frontend development commands are established.
 * React/Vite configuration is established.
 * Backend configuration is established.
 * Shared-code configuration is established.
-* Code-quality tooling is established.
+* ESLint and Prettier are established.
 * Testing tooling is established.
 * Complete toolchain verification passes.
 * Documentation reflects the actual implementation.

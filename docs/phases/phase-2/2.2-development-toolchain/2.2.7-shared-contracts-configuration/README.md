@@ -841,23 +841,21 @@ Each sub-stage must be verified before moving to the next.
 
 # Current Status
 
-**2.2.7 — In Progress**
+**2.2.7 — Complete**
 
 **Current Sub-stage:**
 
-**2.2.7.1 — Shared Module Resolution & Build Boundary**
+**2.2.7.5 — Documentation & Checkpoint**
 
-The first shared source contract has been created:
+The shared contract architecture is complete and verified.
+
+The repository includes a working shared source contract:
 
 ```text
 shared/src/application.ts
 ```
 
-Frontend consumption has been established.
-
-Backend consumption exposed a NodeNext/ESM module-resolution and build-boundary issue.
-
-That issue is now explicitly isolated into sub-stage **2.2.7.1**.
+Frontend and backend consumption are both established and validated. The documented and verified build boundary, shared contract, validation evidence, and final checkpoint record are all in place.
 
 ---
 

@@ -9,7 +9,11 @@
     "typecheck": "npm run typecheck:frontend && npm run typecheck:backend && npm run typecheck:shared",
     "typecheck:frontend": "node scripts/typecheck.mjs frontend",
     "typecheck:backend": "node scripts/typecheck.mjs backend",
-    "typecheck:shared": "node scripts/typecheck.mjs shared"
+    "typecheck:shared": "node scripts/typecheck.mjs shared",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write ./frontend/src ./backend/src ./shared/src ./scripts ./tsconfig.json ./frontend/tsconfig.json ./frontend/vite.config.ts ./backend/tsconfig.json ./backend/tsconfig.build.json ./shared/tsconfig.json ./shared/tsconfig.build.json ./eslint.config.mjs ./.prettierrc.json",
+    "format:check": "prettier --check ./frontend/src ./backend/src ./shared/src ./scripts ./tsconfig.json ./frontend/tsconfig.json ./frontend/vite.config.ts ./backend/tsconfig.json ./backend/tsconfig.build.json ./shared/tsconfig.json ./shared/tsconfig.build.json ./eslint.config.mjs ./.prettierrc.json"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +25,8 @@
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.5",
     "@vitejs/plugin-react": "^6.1.1",
+    "eslint": "^10.9.1",
+    "prettier": "^3.9.6",
     "tsx": "^4.23.13",
     "typescript": "^7.0.2",
     "vite": "^8.2.2"

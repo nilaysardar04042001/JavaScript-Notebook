@@ -1,12 +1,12 @@
-import { existsSync, readdirSync } from "node:fs";
-import { resolve } from "node:path";
-import { spawnSync } from "node:child_process";
+import { existsSync, readdirSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { spawnSync } from 'node:child_process';
 
-const scopes = new Set(["frontend", "backend", "shared"]);
+const scopes = new Set(['frontend', 'backend', 'shared']);
 const scope = process.argv[2];
 
 if (!scopes.has(scope)) {
-  console.error("Usage: node scripts/typecheck.mjs <frontend|backend|shared>");
+  console.error('Usage: node scripts/typecheck.mjs <frontend|backend|shared>');
   process.exitCode = 1;
 } else {
   const projectDirectory = resolve(scope);
@@ -15,12 +15,18 @@ if (!scopes.has(scope)) {
     console.error(`Typecheck scope does not exist: ${scope}`);
     process.exitCode = 1;
   } else if (!hasTypeScriptSource(projectDirectory)) {
-    console.log(`Skipping ${scope} typecheck: no TypeScript source files found.`);
+    console.log(
+      `Skipping ${scope} typecheck: no TypeScript source files found.`,
+    );
   } else {
-    const tscPath = resolve("node_modules", "typescript", "bin", "tsc");
-    const result = spawnSync(process.execPath, [tscPath, "--project", `${scope}/tsconfig.json`, "--noEmit"], {
-      stdio: "inherit"
-    });
+    const tscPath = resolve('node_modules', 'typescript', 'bin', 'tsc');
+    const result = spawnSync(
+      process.execPath,
+      [tscPath, '--project', `${scope}/tsconfig.json`, '--noEmit'],
+      {
+        stdio: 'inherit',
+      },
+    );
 
     if (result.error) {
       console.error(result.error.message);
@@ -33,7 +39,7 @@ if (!scopes.has(scope)) {
 
 function hasTypeScriptSource(directory) {
   for (const entry of readdirSync(directory, { withFileTypes: true })) {
-    if (entry.name === "node_modules" || entry.name === ".git") {
+    if (entry.name === 'node_modules' || entry.name === '.git') {
       continue;
     }
 
@@ -42,7 +48,10 @@ function hasTypeScriptSource(directory) {
       return true;
     }
 
-    if (entry.isFile() && (entry.name.endsWith(".ts") || entry.name.endsWith(".tsx"))) {
+    if (
+      entry.isFile() &&
+      (entry.name.endsWith('.ts') || entry.name.endsWith('.tsx'))
+    ) {
       return true;
     }
   }

@@ -1,4 +1,6 @@
-{/* App.tsx */}
+{
+  /* App.tsx */
+}
 import { application } from '../../shared/src/application';
 export function App() {
   return (

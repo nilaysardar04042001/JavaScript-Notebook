@@ -1,0 +1,10 @@
+node_modules/
+frontend/dist/
+backend/dist/
+shared/dist/
+coverage/
+
+docs/
+CHANGELOG.md
+README.md
+JavaScript Notepad.code-workspace

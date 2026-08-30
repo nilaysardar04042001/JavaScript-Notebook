@@ -1,4 +1,6 @@
-{/* Application.ts */}
+{
+  /* Application.ts */
+}
 export type ApplicationState = {
   title: string;
   version: string;

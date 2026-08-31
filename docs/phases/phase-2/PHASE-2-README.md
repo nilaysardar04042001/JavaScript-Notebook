@@ -1,8 +1,8 @@
-﻿# Phase 2 — Project Foundation
+﻿# Phase 2 — Repository & File Architecture
 
 ## Purpose
 
-Phase 2 establishes the technical foundation required to build the JavaScript Notebook application from scratch.
+Phase 2 establishes the repository structure and development toolchain required to build the JavaScript Notebook application from scratch.
 
 The objective is to create a stable, maintainable, testable, and extensible repository before implementing notebook functionality.
 
